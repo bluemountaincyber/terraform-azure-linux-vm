@@ -26,7 +26,7 @@ resource "azurerm_network_security_group" "nsg" {
 }
 
 resource "azurerm_network_security_rule" "nsg_rule" {
-  for_each                    = var.vm_network_rules
+  for_each                    = toset(var.vm_network_rules)
   name                        = each.value.priority
   priority                    = each.value.priority
   direction                   = each.value.direction
