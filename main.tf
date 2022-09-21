@@ -43,7 +43,7 @@ resource "azurerm_network_security_rule" "nsg_rule" {
 resource "azurerm_linux_virtual_machine" "vm" {
   name                            = var.vm_name
   resource_group_name             = var.resource_group
-  location                        = data.azurerm_virtual_network.vnet.location
+  location                        = var.location
   network_interface_ids           = [azurerm_network_interface.interface.id]
   size                            = var.vm_size
   admin_username                  = var.vm_username
