@@ -4,6 +4,12 @@ variable "resource_group" {
   description = "Name of the resource group to deploy VM resources to."
 }
 
+variable "location" {
+  type        = string
+  default     = "East US"
+  description = "Location to deploy VM resources to."
+}
+
 variable "vm_name" {
   type        = string
   default     = "vm"
@@ -16,7 +22,7 @@ variable "vm_vnet" {
   description = "Name of the Azure VNet to place VM into."
 }
 
-variable "vm_subnet" {
+variable "vm_subnet_id" {
   type        = string
   default     = ""
   description = "Name of the Azure subnet to place VM into."

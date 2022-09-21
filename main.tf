@@ -1,30 +1,19 @@
-data "azurerm_virtual_network" "vnet" {
-  name = var.vm_vnet
-  resource_group_name = var.resource_group
-}
-
-data "azurerm_subnet" "subnet" {
-  name                 = var.vm_subnet
-  virtual_network_name = var.vm_vnet
-  resource_group_name  = var.resource_group
-}
-
 resource "azurerm_public_ip" "public_ip" {
   count               = var.create_public_ip ? 1 : 0
   name                = var.vm_name
   resource_group_name = var.resource_group
-  location            = data.azurerm_virtual_network.vnet.location
+  location            = var.location
   allocation_method   = "Dynamic"
 }
 
 resource "azurerm_network_interface" "interface" {
   name                = "${var.vm_name}-nic"
-  location            = data.azurerm_virtual_network.vnet.location
+  location            = var.location
   resource_group_name = var.resource_group
 
   ip_configuration {
     name                          = "internal"
-    subnet_id                     = data.azurerm_subnet.subnet.id
+    subnet_id                     = var.vm_subnet_id
     private_ip_address_allocation = var.vm_private_ip != "" ? "Static" : "Dynamic"
     private_ip_address            = var.vm_private_ip != "" ? var.vm_private_ip : null
   }
@@ -32,7 +21,7 @@ resource "azurerm_network_interface" "interface" {
 
 resource "azurerm_network_security_group" "nsg" {
   name                = var.vm_name
-  location            = data.azurerm_virtual_network.vnet.location
+  location            = var.location
   resource_group_name = var.resource_group
 }
 
