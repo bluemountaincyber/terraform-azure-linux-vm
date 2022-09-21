@@ -65,6 +65,12 @@ variable "vm_password" {
   description = "The password for the local VM user account."
 }
 
+variable "vm_private_ip" {
+  type = string
+  default = ""
+  description = "The private IP address of the VM."
+}
+
 variable "image_publisher" {
   type        = string
   default     = "Canonical"

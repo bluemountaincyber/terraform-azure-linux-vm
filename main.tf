@@ -25,8 +25,8 @@ resource "azurerm_network_interface" "interface" {
   ip_configuration {
     name                          = "internal"
     subnet_id                     = data.azurerm_subnet.subnet.id
-    private_ip_address_allocation = var.private_ip != "" ? "Static" : "Dynamic"
-    private_ip_address            = var.private_ip != "" ? var.private_ip : null
+    private_ip_address_allocation = var.vm_private_ip != "" ? "Static" : "Dynamic"
+    private_ip_address            = var.vm_private_ip != "" ? var.vm_private_ip : null
   }
 }
 
