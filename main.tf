@@ -34,7 +34,7 @@ resource "azurerm_network_security_group" "nsg" {
   resource_group_name = var.resource_group
 }
 
-resource "azurerm_network_security_rule" {
+resource "azurerm_network_security_rule" "nsg_rule" {
   for_each                    = var.vm_network_rules
   name                        = each.value.priority
   priority                    = each.value.priority
