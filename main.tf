@@ -26,16 +26,16 @@ resource "azurerm_network_security_group" "nsg" {
 }
 
 resource "azurerm_network_security_rule" "nsg_rule" {
-  for_each                    = toset(var.vm_network_rules)
-  name                        = each.value.priority
-  priority                    = each.value.priority
-  direction                   = each.value.direction
-  access                      = each.value.access
-  protocol                    = each.value.protocol
-  source_port_range           = each.value.source_port
-  destination_port_range      = each.value.dest_port
-  source_address_prefix       = each.value.source_ip
-  destination_address_prefix  = each.value.dest_ip
+  count                       = length(var.vm_network_rules)
+  name                        = var.vm_network_rules[count.index].priority
+  priority                    = var.vm_network_rules[count.index].priority
+  direction                   = var.vm_network_rules[count.index].direction
+  access                      = var.vm_network_rules[count.index].access
+  protocol                    = var.vm_network_rules[count.index].protocol
+  source_port_range           = var.vm_network_rules[count.index].source_port
+  destination_port_range      = var.vm_network_rules[count.index].dest_port
+  source_address_prefix       = var.vm_network_rules[count.index].source_ip
+  destination_address_prefix  = var.vm_network_rules[count.index].dest_ip
   resource_group_name         = var.resource_group
   network_security_group_name = azurerm_network_security_group.nsg.name
 }
