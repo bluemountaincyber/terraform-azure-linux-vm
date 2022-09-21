@@ -30,14 +30,14 @@ variable "vm_subnet_id" {
 
 variable "vm_network_rules" {
   type = list(object({
-    priority = number
-    protocol = string
-    source_ip = string
-    dest_ip = string
+    priority    = number
+    protocol    = string
+    source_ip   = string
+    dest_ip     = string
     source_port = string
-    dest_port = string
-    direction = string
-    access = string
+    dest_port   = string
+    direction   = string
+    access      = string
   }))
   default = [
     {
@@ -72,8 +72,8 @@ variable "vm_password" {
 }
 
 variable "vm_private_ip" {
-  type = string
-  default = ""
+  type        = string
+  default     = ""
   description = "The private IP address of the VM."
 }
 
@@ -99,6 +99,17 @@ variable "image_version" {
   type        = string
   default     = "latest"
   description = "VM image version."
+}
+
+variable "vm_userdata" {
+  type        = string
+  default     = <<-EOF
+  #!/bin/bash
+
+  sudo apt update
+  sudo apt upgrade -y
+  EOF
+  description = "Script contents to be run at first boot."
 }
 
 variable "create_public_ip" {
