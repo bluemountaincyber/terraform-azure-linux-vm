@@ -49,7 +49,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   admin_username                  = var.vm_username
   admin_password                  = var.vm_password
   disable_password_authentication = false
-  user_data                       = base64encode(var.user_data)
+  user_data                       = base64encode(var.vm_userdata)
   os_disk {
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
