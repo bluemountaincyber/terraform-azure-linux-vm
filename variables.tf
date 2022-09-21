@@ -23,10 +23,19 @@ variable "vm_subnet" {
 }
 
 variable "vm_network_rules" {
-  type = list(object)
+  type = list(object({
+    priority = number
+    protocol = string
+    source_ip = string
+    dest_ip = string
+    source_port = string
+    dest_port = string
+    direction = string
+    access = string
+  }))
   default = [
     {
-      ruleNum     = 100
+      priority    = 100
       protocol    = "Tcp"
       source_ip   = "0.0.0.0/0"
       dest_ip     = "0.0.0.0/0"
