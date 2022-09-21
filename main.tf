@@ -1,10 +1,12 @@
 data "azurerm_virtual_network" "vnet" {
   name = var.vm_vnet
+  resource_group_name = var.resource_group
 }
 
 data "azurerm_subnet" "subnet" {
   name                 = var.vm_subnet
   virtual_network_name = var.vm_vnet
+  resource_group_name = var.resource_group
 }
 
 resource "azurerm_public_ip" "public_ip" {
