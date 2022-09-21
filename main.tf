@@ -6,7 +6,7 @@ data "azurerm_virtual_network" "vnet" {
 data "azurerm_subnet" "subnet" {
   name                 = var.vm_subnet
   virtual_network_name = var.vm_vnet
-  resource_group_name = var.resource_group
+  resource_group_name  = var.resource_group
 }
 
 resource "azurerm_public_ip" "public_ip" {
@@ -18,13 +18,13 @@ resource "azurerm_public_ip" "public_ip" {
 }
 
 resource "azurerm_network_interface" "interface" {
-  name                = "${vm_name}-nic"
+  name                = "${var.vm_name}-nic"
   location            = data.azurerm_virtual_network.vnet.location
   resource_group_name = var.resource_group
 
   ip_configuration {
     name                          = "internal"
-    subnet_id                     = data.azurerm_subnet.id
+    subnet_id                     = data.azurerm_subnet.subnet.id
     private_ip_address_allocation = var.private_ip != "" ? "Static" : "Dynamic"
     private_ip_address            = var.private_ip != "" ? var.private_ip : null
   }
